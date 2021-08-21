@@ -50,7 +50,7 @@ function addManager() {
         },
         {
             type: 'input',
-            name: 'office',
+            name: 'officeNumber',
             message: 'Enter the team manager\'s office number:',
             validate: data => {
                 if (data) { return true; }
@@ -199,7 +199,7 @@ function addIntern(team) {
 }
 
 function writeToFile(data) {
-    fs.writeFile('./dist/index2.html', data, (err) => { 
+    fs.writeFile('./dist/index.html', data, (err) => { 
         if (err) throw err;
         console.log('File saved.');
     })

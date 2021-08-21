@@ -33,6 +33,24 @@ function createFromTemplate(employees) {
     <main>
         <div class="d-flex flex-row flex-wrap bd-highlight mb-3 justify-content-center">
     `
+    current = new Manager(manager[0], manager[0].officeNumber);
+
+    rendered = rendered + `
+    <div class="p-2 bd-highlight">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-header border border-dark bg-primary">
+                        <h2 class="name">${current.getName()}</h2>
+                        <h5 class="role">${current.getRole()}</h5>
+                    </div>
+                    <ul class="list-group list-group-flush border border-dark">
+                        <li class="list-group-item">ID: ${current.getId()}</li>
+                        <li class="list-group-item">Email: <a href="mailto:${current.getEmail()}">${current.getEmail()}</a></li>
+                        <li class="list-group-item">Office Number: ${current.getOfficeNumber()}</li>
+                    </ul>
+                </div>
+            </div>
+    `
+    
     engineers.forEach(function(engineer) {
         current = new Engineer(engineer, engineer.github);
         rendered = rendered + `
@@ -51,6 +69,32 @@ function createFromTemplate(employees) {
             </div>
         `
     })
+
+    interns.forEach(function(intern) {
+        current = new Intern(intern, intern.school);
+        rendered = rendered + `
+        <div class="p-2 bd-highlight">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-header border border-dark bg-primary">
+                        <h2 class="name">${current.getName()}</h2>
+                        <h5 class="role">${current.getRole()}</h5>
+                    </div>
+                    <ul class="list-group list-group-flush border border-dark">
+                        <li class="list-group-item">ID: ${current.getId()}</li>
+                        <li class="list-group-item">Email: <a href="mailto:${current.getEmail()}">${current.getEmail()}</a></li>
+                        <li class="list-group-item">School: ${current.getSchool()}</li>
+                    </ul>
+                </div>
+            </div>
+        `
+    })
+
+    rendered += `
+    </div>
+    </main>
+</body>
+
+</html>`
 
     return rendered;
 }
