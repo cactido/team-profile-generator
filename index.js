@@ -130,8 +130,75 @@ function addEngineer(team) {
     })
 }
 
+function addIntern(team) {
+    if (!team.interns) { team.interns = [] };
+
+    return inquirer.prompt([
+        {
+            type: 'input',
+            name: 'name',
+            message: 'Enter the intern\'s name:',
+            validate: data => {
+                if (data) { return true; }
+                else {
+                    console.log('Name cannot be blank.');
+                    return false;
+                }
+            }
+        },
+        {
+            type: 'input',
+            name: 'id',
+            message: 'Enter the intern\'s ID number:',
+            validate: data => {
+                if (data) { return true; }
+                else {
+                    console.log('ID cannot be blank.');
+                    return false;
+                }
+            }
+        },
+        {
+            type: 'input',
+            name: 'email',
+            message: 'Enter the intern\'s email address:',
+            validate: data => {
+                if (data) { return true; }
+                else {
+                    console.log('Email address cannot be blank.');
+                    return false;
+                }
+            }
+        },
+        {
+            type: 'input',
+            name: 'school',
+            message: 'Enter the intern\'s school:',
+            validate: data => {
+                if (data) { return true; }
+                else {
+                    console.log('Username cannot be blank.');
+                    return false;
+                }
+            }
+        },
+        {
+            type: 'confirm',
+            name: 'addAnother',
+            message: 'Would you like to add another intern to the team?',
+            default: false
+        }
+    ]).then((data) => {
+        team.interns.push(data);
+        if (data.addAnother) { return addIntern(team); }
+        else { return team; }
+    })
+}
+
+
 var team = [];
 
 addManager(team)
 .then(addEngineer)
+.then(addIntern)
 .then(data => console.log(data));
