@@ -33,8 +33,9 @@ function createFromTemplate(employees) {
     <main>
         <div class="d-flex flex-row flex-wrap bd-highlight mb-3 justify-content-center">
     `
+    //create a new manager object from the manager data
     current = new Manager(manager[0], manager[0].officeNumber);
-
+    //add the manager card to the template
     rendered = rendered + `
     <div class="p-2 bd-highlight">
                 <div class="card" style="width: 18rem;">
@@ -50,9 +51,11 @@ function createFromTemplate(employees) {
                 </div>
             </div>
     `
-    
+    //iterate through engineers
     engineers.forEach(function(engineer) {
+        //create engineer object with the current employee info
         current = new Engineer(engineer, engineer.github);
+        //add the current engineer card to the template
         rendered = rendered + `
         <div class="p-2 bd-highlight">
                 <div class="card" style="width: 18rem;">
@@ -69,9 +72,11 @@ function createFromTemplate(employees) {
             </div>
         `
     })
-
+    //iterate through interns
     interns.forEach(function(intern) {
+        //create an intern object from the current employee info
         current = new Intern(intern, intern.school);
+        //add the intern card to the template
         rendered = rendered + `
         <div class="p-2 bd-highlight">
                 <div class="card" style="width: 18rem;">
@@ -88,14 +93,14 @@ function createFromTemplate(employees) {
             </div>
         `
     })
-
+    //add the closing tags for the template page
     rendered += `
     </div>
     </main>
 </body>
 
 </html>`
-
+    //return the complete template to be written to a file
     return rendered;
 }
 

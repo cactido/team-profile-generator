@@ -11,6 +11,7 @@ const Manager = require('./lib/Manager.js');
 
 
 function addManager() {
+    //prompt the user for team manager information 
     return inquirer.prompt([
         {
             type: 'input',
@@ -61,6 +62,7 @@ function addManager() {
             }
         }
     ])
+    //add the manager to the team, then return the team to add additional members
     .then((data) => {
         team.manager = [];
         team.manager.push(data);
@@ -69,6 +71,8 @@ function addManager() {
 }
 
 function addEngineer(team) {
+    //adds an engineer to the team, prompts if there are more to add, finally returns
+    //team with new engineer members
     if (!team.engineers) { team.engineers = [] };
 
     return inquirer.prompt([
@@ -127,13 +131,17 @@ function addEngineer(team) {
             default: false
         }
     ]).then((data) => {
+        //add engineer to the team
         team.engineers.push(data);
+        //if user wants to add another engineer, start over
         if (data.addAnother) { return addEngineer(team); }
+        //if not, return the team for more additions
         else { return team; }
     })
 }
 
 function addIntern(team) {
+    //prompts user for intern information, adds them to the team, returns team information
     if (!team.interns) { team.interns = [] };
 
     return inquirer.prompt([
@@ -192,13 +200,17 @@ function addIntern(team) {
             default: false
         }
     ]).then((data) => {
+        //add intern to the team
         team.interns.push(data);
+        //if the user wanted to add more, starts from a new prompt
         if (data.addAnother) { return addIntern(team); }
+        //if not, returns the team 
         else { return team; }
     })
 }
 
 function writeToFile(data) {
+    //writes the template provided by create-from-template.js to an index.html file
     fs.writeFile('./dist/index.html', data, (err) => { 
         if (err) throw err;
         console.log('File saved.');
@@ -208,10 +220,14 @@ function writeToFile(data) {
 
 var team = [];
 
+//start by adding the manager
 addManager(team)
+//prompt for engineers
 .then(addEngineer)
+//then for interns
 .then(addIntern)
-//.then(data => { console.log(data) })
+//sends the objects to create-from-template.js to generate HTML
 .then(data => template(data))
+//sends generated html to be written to a file
 .then(templated => writeToFile(templated))
 .catch(err => { console.log(err) });
