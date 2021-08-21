@@ -1,5 +1,8 @@
 // package includes
 const inquirer = require('inquirer');
+const fs = require('fs')
+//include HTML template helper
+const template = require('./src/create-from-template.js');
 // Class includes
 const Employee = require('./lib/Employee.js');
 const Engineer = require('./lib/Engineer.js');
@@ -195,10 +198,20 @@ function addIntern(team) {
     })
 }
 
+function writeToFile(data) {
+    fs.writeFile('./dist/index2.html', data, (err) => { 
+        if (err) throw err;
+        console.log('File saved.');
+    })
+   console.log(data);
+}
 
 var team = [];
 
 addManager(team)
 .then(addEngineer)
 .then(addIntern)
-.then(data => console.log(data));
+//.then(data => { console.log(data) })
+.then(data => template(data))
+.then(templated => writeToFile(templated))
+.catch(err => { console.log(err) });
