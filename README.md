@@ -16,4 +16,4 @@ Tests run through Jest and can be started with "npm run test"
  ## Links
  [Generated Demonstration Team Page](https://github.com/cactido/team-profile-generator/tree/main/dist/index.html)  
  [GitHub Repository](https://github.com/cactido/team-profile-generator)  
- [Video Demonstration]()
+ [Video Demonstration](https://drive.google.com/file/d/1NUnCnduG2OheFqXJlxga0Ummko7fUalB/view?usp=sharing)
